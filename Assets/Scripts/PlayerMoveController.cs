@@ -1,6 +1,3 @@
-using System;
-using UnityEditor;
-using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +8,9 @@ public class PlayerMoveController : MonoBehaviour
     private NavMeshAgent _agent;
     private Animator _animator;
     private bool _isRunning = false;
+
+    [SerializeField] private float controlDelay = .2f;
+    private float _timer;
     
     private void Start () {
         _camera = Camera.main;
@@ -19,9 +19,9 @@ public class PlayerMoveController : MonoBehaviour
     }
 	
     private void Update () {
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance.Tap)
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(InputManager.Instance.MousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -30,7 +30,6 @@ public class PlayerMoveController : MonoBehaviour
                 _agent.SetDestination(hit.point);
                 _animator.SetBool("isRunning", true);
                 _isRunning = true;
-                // Stop focusing
             }
         }
 
@@ -42,7 +41,6 @@ public class PlayerMoveController : MonoBehaviour
             {
                 if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                 {
-                    Debug.Log("Player arrived!");
                     _animator.SetBool("isRunning", false);
                     _isRunning = false;
                 }
