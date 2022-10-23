@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputActions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputActionsMap/InputActions.inputactions'
 
 using System;
 using System.Collections;
@@ -28,7 +28,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Swipe"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""57d35409-1cc7-445b-9185-410309f5cf21"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -40,7 +40,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""3f9776e1-86ee-4363-aa25-a29668429f08"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Main"",
                     ""action"": ""Tap"",
@@ -51,7 +51,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""843a3645-690f-41db-bf9d-481ac2997063"",
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Main"",
                     ""action"": ""Tap"",
