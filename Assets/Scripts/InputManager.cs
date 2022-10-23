@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     private bool _tap = false;
     private bool _swipe = false;
 
+    private bool _inputUI;
+
     #region Properties
 
     public bool Tap => _tap;
@@ -44,6 +46,8 @@ public class InputManager : MonoBehaviour
 
     private void OnTap(InputAction.CallbackContext ctx)
     {
+        if (_inputUI)
+            return;
         _tap = true;
     }
     
@@ -60,6 +64,13 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         MousePosition = Mouse.current.position.ReadValue();
+    }
+
+    public void ToggleControl(bool value)
+    {
+        if (value == _inputUI)
+            return;
+        _inputUI = value;
     }
 
     private void OnEnable()
