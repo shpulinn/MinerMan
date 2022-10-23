@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerMoveController : MonoBehaviour
 {
-
     private Camera _camera;
 
     [SerializeField] private float controlDelay = .2f;
