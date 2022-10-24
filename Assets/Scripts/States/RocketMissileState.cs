@@ -8,6 +8,10 @@ public class RocketMissileState : BaseState
     {
         stateName = "Rocket missile";
     }
+    
+    // _______------------____________
+    // Animation: player with telephone (radio) calls for air strike
+    // ---------_________-------------
 
     public override void Transition()
     {
