@@ -8,10 +8,15 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField] private float controlDelay = .2f;
 
     private PlayerMotor _motor;
+
+    private BaseState _state;
     
     private void Start () {
         _camera = Camera.main;
         _motor = GetComponent<PlayerMotor>();
+        
+        _state = GetComponent<RunningState>();
+        _state.Construct();
     }
 	
     private void Update () {
@@ -23,7 +28,8 @@ public class PlayerMoveController : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // Move player to click position
-                _motor.MoveToPoint(hit.point);
+                //_motor.MoveToPoint(hit.point);
+                _state.MoveToPoint(hit.point);
             }
         }
     }
