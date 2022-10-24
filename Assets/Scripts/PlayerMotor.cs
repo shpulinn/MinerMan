@@ -16,21 +16,31 @@ public class PlayerMotor : MonoBehaviour {
 
     private const string animRunningBoolName = "isRunning";
 
+    private BaseState _state;
+
+    public bool IsRunning => _isRunning;
+
     // Get references
     void Start () {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+
+        _state = GetComponent<IdleState>();
+        _state.Construct();
     }
 
     void Update ()
     {
+        Debug.Log("Current state is: " + _state.stateName);
         // If we have a target
-        if (_target != null)
-        {
-            // Move towards it and look at it
-            _agent.SetDestination(_target.position);
-            FaceTarget();
-        }
+        // if (_target != null)
+        // {
+        //     // Move towards it and look at it
+        //     _agent.SetDestination(_target.position);
+        //     FaceTarget();
+        // }
+        
+        UpdateMotor();
         
         if (_isRunning == false) return;
         
@@ -46,12 +56,25 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
     }
+
+    private void UpdateMotor()
+    {
+        // Are we changing state?
+        _state.Transition();
+    }
 	
     public void MoveToPoint (Vector3 point)
     {
         _agent.SetDestination(point);
         _animator.SetBool(animRunningBoolName, true);
         _isRunning = true;
+    }
+    
+    public void ChangeState(BaseState state)
+    {
+        _state.Destruct();
+        _state = state;
+        _state.Construct();
     }
 
     // Start following a target
