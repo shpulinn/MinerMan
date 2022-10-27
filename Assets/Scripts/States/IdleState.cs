@@ -13,7 +13,6 @@ public class IdleState : BaseState
     {
         if (InputManager.Instance.Tap)
         {
-            Debug.LogWarning("Here");
             Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
             RaycastHit hit;
 
@@ -24,6 +23,11 @@ public class IdleState : BaseState
                 GetComponent<RunningState>().MoveToPoint(hit.point);
                 playerMotor.ChangeState(GetComponent<RunningState>());
             }
+        }
+
+        if (playerMotor.CanMiningEnergy)
+        {
+            playerMotor.ChangeState(GetComponent<MiningState>());
         }
         
         // other transitions here:
