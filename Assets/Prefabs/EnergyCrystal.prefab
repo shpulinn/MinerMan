@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 6403292179170180810}
   - component: {fileID: 6403292179169082378}
   - component: {fileID: 6403292179176558858}
+  - component: {fileID: 7469866892840205610}
+  - component: {fileID: 7431401952241781516}
   m_Layer: 0
   m_Name: EnergyCrystal
-  m_TagString: Untagged
+  m_TagString: EnergyCrystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,6 +108,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &7469866892840205610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6403292179167077066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9889762, y: 3.7984324, z: 2.5743952}
+  m_Center: {x: 0.00000011920929, y: 7.2881595e-16, z: 1.0512856}
+--- !u!208 &7431401952241781516
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6403292179167077066}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.76000005, y: 1.095, z: 0.83300006}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.597}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4833394386870367469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,6 +147,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4489aab74c397c441bfdd6a9bf9d19e5, type: 3}
       propertyPath: m_Name
       value: GemStone01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4489aab74c397c441bfdd6a9bf9d19e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4489aab74c397c441bfdd6a9bf9d19e5, type: 3}
       propertyPath: m_RootOrder
@@ -178,6 +213,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2afe0ed8b33cf4d42b322c20a91a083b, type: 3}
       propertyPath: m_Name
       value: GemStone00
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2afe0ed8b33cf4d42b322c20a91a083b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2afe0ed8b33cf4d42b322c20a91a083b, type: 3}
       propertyPath: m_RootOrder
@@ -253,6 +292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemStone03
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c9c1c6b4df1b6c34a81f5fa97630b07e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9c1c6b4df1b6c34a81f5fa97630b07e, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -327,6 +370,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemStone04
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3384200d62d5e0f40a50626d10210fe0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3384200d62d5e0f40a50626d10210fe0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -388,6 +435,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: c9c1c6b4df1b6c34a81f5fa97630b07e, type: 3}
       propertyPath: m_Name
       value: GemStone03
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c9c1c6b4df1b6c34a81f5fa97630b07e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9c1c6b4df1b6c34a81f5fa97630b07e, type: 3}
       propertyPath: m_RootOrder
