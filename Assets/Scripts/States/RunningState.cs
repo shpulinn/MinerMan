@@ -15,6 +15,20 @@ public class RunningState : BaseState
 
     public override void Transition()
     {
+        // player can change direction while running
+        if (InputManager.Instance.Tap)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                // Move player to click position
+                MoveToPoint(hit.point);
+            }
+        }
+        
+        // when player reached position
         if (playerMotor.IsRunning == false)
         {
             playerMotor.ChangeState(GetComponent<IdleState>());
