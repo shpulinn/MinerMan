@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,21 @@ public class PlayerMotor : MonoBehaviour {
     private Animator _animator;
 
     private bool _isRunning = false;
+    private bool _canMiningEnergy = false;
 
     private const string animRunningBoolName = "isRunning";
 
     private BaseState _state;
 
+    private GameObject _destroyable;
+
     public bool IsRunning => _isRunning;
+
+    public bool CanMiningEnergy
+    {
+        get { return _canMiningEnergy; }
+        set { _canMiningEnergy = value; }
+    }
 
     // Get references
     void Start () {
@@ -31,7 +41,6 @@ public class PlayerMotor : MonoBehaviour {
 
     void Update ()
     {
-        Debug.Log("Current state is: " + _state.stateName);
         // If we have a target
         // if (_target != null)
         // {
@@ -41,6 +50,13 @@ public class PlayerMotor : MonoBehaviour {
         // }
         
         UpdateMotor();
+    }
+
+    private void UpdateMotor()
+    {
+        //Debug.Log("Current state is: " + _state.stateName);
+        // Are we changing state?
+        _state.Transition();
         
         if (_isRunning == false) return;
         
@@ -56,12 +72,6 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
     }
-
-    private void UpdateMotor()
-    {
-        // Are we changing state?
-        _state.Transition();
-    }
 	
     public void MoveToPoint (Vector3 point)
     {
@@ -75,6 +85,24 @@ public class PlayerMotor : MonoBehaviour {
         _state.Destruct();
         _state = state;
         _state.Construct();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("EnergyCrystal") && _isRunning == false)
+        {
+            _canMiningEnergy = true;
+            _destroyable = other.gameObject;
+        }
+        else _canMiningEnergy = false;
+    }
+
+    public void DestroyMiningObject()
+    {
+        if (_destroyable != null)
+        {
+            Destroy(_destroyable);
+        }
     }
 
     // Start following a target
