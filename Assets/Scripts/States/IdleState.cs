@@ -25,11 +25,11 @@ public class IdleState : BaseState
             }
         }
 
-        if (playerMotor.CanMiningEnergy)
+        if (playerMotor.CanMiningEnergy || playerMotor.CanMiningCrystal)
         {
             playerMotor.ChangeState(GetComponent<MiningState>());
         }
-        
+
         // other transitions here:
         // Mining state
         // Fighting state
