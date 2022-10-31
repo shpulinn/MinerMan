@@ -15,6 +15,7 @@ public class PlayerMotor : MonoBehaviour {
 
     private bool _isRunning = false;
     private bool _canMiningEnergy = false;
+    private bool _canMiningCrystal = false;
 
     private const string animRunningBoolName = "isRunning";
 
@@ -28,6 +29,12 @@ public class PlayerMotor : MonoBehaviour {
     {
         get { return _canMiningEnergy; }
         set { _canMiningEnergy = value; }
+    }
+    
+    public bool CanMiningCrystal
+    {
+        get { return _canMiningCrystal; }
+        set { _canMiningCrystal = value; }
     }
 
     // Get references
@@ -95,6 +102,13 @@ public class PlayerMotor : MonoBehaviour {
             _destroyable = other.gameObject;
         }
         else _canMiningEnergy = false;
+
+        if (other.CompareTag("Crystal") && _isRunning == false)
+        {
+            _canMiningCrystal = true;
+            _destroyable = other.gameObject;
+        }
+        else _canMiningCrystal = false;
     }
 
     public void DestroyMiningObject()
