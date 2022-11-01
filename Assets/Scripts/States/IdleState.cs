@@ -13,7 +13,13 @@ public class IdleState : BaseState
     {
         if (InputManager.Instance.Tap)
         {
-            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
+            //Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
+            Ray ray;
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
+            } else 
+                ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Touchscreen.current.touches[0].position.ReadValue());
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
