@@ -28,6 +28,11 @@ public class FightingState : BaseState
                 playerMotor.ChangeState(GetComponent<RunningState>());
             }
         }
+
+        if (playerMotor.IsFighting == false)
+        {
+            playerMotor.ChangeState(GetComponent<IdleState>());
+        }
         // other transitions here:
         // Idle state
         // Running state
