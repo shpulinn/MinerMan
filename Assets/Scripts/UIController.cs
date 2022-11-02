@@ -9,11 +9,16 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance;
-    
+
+    [SerializeField] private PlayerMotor playerMotor;
     [SerializeField] private GameObject gameOverDeathScreen;
     [SerializeField] private GameObject gameOverWinScreen;
     [SerializeField] private Text goalAmountText;
     [SerializeField] private Text currentAmountText;
+
+    // GameObjects references
+    [SerializeField] private GameObject pickaxeGameObject;
+    [SerializeField] private GameObject gunGameObject;
 
     private void Awake()
     {
@@ -64,5 +69,21 @@ public class UIController : MonoBehaviour
     public void ExitButtonClick()
     {
         Application.Quit();
+    }
+
+    public void ActionToggle(bool value)
+    {
+        if (value) // True == mining / False == fighting
+        {
+            gunGameObject.SetActive(false);
+            pickaxeGameObject.SetActive(true);
+            playerMotor.TakePickaxe();
+        }
+        else
+        {
+            pickaxeGameObject.SetActive(false);
+            gunGameObject.SetActive(true);
+            playerMotor.TakeGun();
+        }
     }
 }
