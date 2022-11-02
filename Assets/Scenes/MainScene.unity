@@ -308,6 +308,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3916574325633068106, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}
   m_PrefabInstance: {fileID: 24068835}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &98656888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2651747729594002529, guid: fcdb12c0011022649b9ec1569d29917d, type: 3}
+  m_PrefabInstance: {fileID: 1431256952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &118679039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -551,10 +556,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7fe7f913e543841aca38e0a8b742f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMotor: {fileID: 1250377793}
   gameOverDeathScreen: {fileID: 0}
   gameOverWinScreen: {fileID: 474463469}
   goalAmountText: {fileID: 1451364023}
   currentAmountText: {fileID: 1359843727}
+  pickaxeGameObject: {fileID: 98656888}
+  gunGameObject: {fileID: 561597386}
 --- !u!1 &191161912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1483,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8377151309574368355, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
   m_PrefabInstance: {fileID: 506193938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &561597386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4642901189867670581, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
+  m_PrefabInstance: {fileID: 1608451162}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &572861220
 GameObject:
@@ -2397,7 +2410,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 162110443}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ActionToggle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1001 &1017589179
 PrefabInstance:
@@ -3980,31 +4005,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7101812
+      value: 0.5952418
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0679878
+      value: -0.122499086
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7006867
+      value: 0.78913844
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.007649526
+      value: -0.08911728
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 4.925
+      value: -0.297
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 89.492
+      value: 105.992
       objectReference: {fileID: 0}
     - target: {fileID: 5414794209011783311, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 6.116
+      value: -17.424
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
