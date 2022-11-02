@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +11,8 @@ public class PlayerMotor : MonoBehaviour {
     private Animator _animator;
 
     private bool _isRunning = false;
+    private bool _isFighting = false;
+    private bool _canMining = true;
     private bool _canMiningEnergy = false;
     private bool _canMiningCrystal = false;
 
@@ -25,6 +24,8 @@ public class PlayerMotor : MonoBehaviour {
 
     public bool IsRunning => _isRunning;
 
+    public bool IsFighting => _isFighting;
+    
     public bool CanMiningEnergy
     {
         get { return _canMiningEnergy; }
@@ -96,6 +97,9 @@ public class PlayerMotor : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
+        if (_canMining == false)
+            return;
+
         if (other.CompareTag("EnergyCrystal") && _isRunning == false)
         {
             _canMiningEnergy = true;
@@ -143,6 +147,20 @@ public class PlayerMotor : MonoBehaviour {
         Vector3 direction = (_target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    public void TakeGun()
+    {
+        _animator.SetBool("isFighting", true);
+        _isFighting = true;
+        _canMining = false;
+    }
+
+    public void TakePickaxe()
+    {
+        _animator.SetBool("isFighting", false);
+        _isFighting = false;
+        _canMining = true;
     }
 
 }
