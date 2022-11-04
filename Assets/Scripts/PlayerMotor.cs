@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public class PlayerMotor : MonoBehaviour {
 
     private bool _isRunning = false;
     private bool _isFighting = false;
+    private bool _isDead = false;
     private bool _canMining = true;
     private bool _isRocketing = false;
     private bool _canMiningEnergy = false;
@@ -26,6 +28,8 @@ public class PlayerMotor : MonoBehaviour {
     public bool IsRunning => _isRunning;
 
     public bool IsFighting => _isFighting;
+
+    public bool IsDead => _isDead;
 
     public bool IsRocketing => _isRocketing;
     
@@ -180,4 +184,13 @@ public class PlayerMotor : MonoBehaviour {
         ChangeState(GetComponent<IdleState>());
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.collider.name);
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            _isDead = true;
+            _animator.SetBool("isDead", true);
+        }
+    }
 }
