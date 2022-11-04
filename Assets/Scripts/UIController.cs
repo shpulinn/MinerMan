@@ -86,4 +86,16 @@ public class UIController : MonoBehaviour
             playerMotor.TakeGun();
         }
     }
+
+    public void RocketMissileToggle(bool value)
+    {
+        if (value) // True == rocket / False == nothing
+        {
+            playerMotor.StartRocketing();
+        }
+        else
+        {
+            playerMotor.StopRocketing();
+        }
+    }
 }
