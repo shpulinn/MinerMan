@@ -41,6 +41,11 @@ public class IdleState : BaseState
             playerMotor.ChangeState(GetComponent<FightingState>());
         }
 
+        if (playerMotor.IsDead)
+        {
+            playerMotor.ChangeState(GetComponent<DeathState>());
+        }
+
         // other transitions here:
         // Mining state
         // Fighting state
