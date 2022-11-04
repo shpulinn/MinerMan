@@ -10,6 +10,8 @@ public class PlayerEnergy : MonoBehaviour
 
     private float _currentEnergy;
 
+    public float CurrentEnergy => _currentEnergy;
+
     private void Start()
     {
         _currentEnergy = energySlider.value;
