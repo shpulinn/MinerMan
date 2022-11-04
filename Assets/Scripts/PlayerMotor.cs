@@ -13,6 +13,7 @@ public class PlayerMotor : MonoBehaviour {
     private bool _isRunning = false;
     private bool _isFighting = false;
     private bool _canMining = true;
+    private bool _isRocketing = false;
     private bool _canMiningEnergy = false;
     private bool _canMiningCrystal = false;
 
@@ -25,6 +26,8 @@ public class PlayerMotor : MonoBehaviour {
     public bool IsRunning => _isRunning;
 
     public bool IsFighting => _isFighting;
+
+    public bool IsRocketing => _isRocketing;
     
     public bool CanMiningEnergy
     {
@@ -161,6 +164,20 @@ public class PlayerMotor : MonoBehaviour {
         _animator.SetBool("isFighting", false);
         _isFighting = false;
         _canMining = true;
+    }
+
+    public void StartRocketing()
+    {
+        _isRocketing = true;
+        _canMining = false;
+        ChangeState(GetComponent<RocketMissileState>());
+    }
+
+    public void StopRocketing()
+    {
+        _isRocketing = false;
+        _canMining = true;
+        ChangeState(GetComponent<IdleState>());
     }
 
 }
