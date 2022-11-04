@@ -8,4 +8,14 @@ public class DeathState : BaseState
     {
         stateName = "Death";
     }
+
+    public override void Transition()
+    {
+        ShowDeathScreen();
+    }
+
+    private void ShowDeathScreen()
+    {
+        UIController.Instance.ShowDeathScreen();
+    }
 }
