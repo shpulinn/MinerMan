@@ -38,7 +38,11 @@ public class RunningState : BaseState
         {
             playerMotor.ChangeState(GetComponent<IdleState>());
         }
-        
+
+        if (playerMotor.IsDead)
+        {
+            playerMotor.ChangeState(GetComponent<DeathState>());
+        }
         // other transitions here:
         // Fighting state
         // RocketMissile state 
