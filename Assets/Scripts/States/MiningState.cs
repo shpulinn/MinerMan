@@ -76,6 +76,11 @@ public class MiningState : BaseState
         {
             playerMotor.ChangeState(GetComponent<RocketMissileState>());
         }
+
+        if (playerMotor.IsDead)
+        {
+            playerMotor.ChangeState(GetComponent<DeathState>());
+        }
         // other transitions here:
         // Running state
         // Fighting state
