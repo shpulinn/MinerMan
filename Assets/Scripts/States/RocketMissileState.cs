@@ -5,10 +5,14 @@ using UnityEngine;
 public class RocketMissileState : BaseState
 {
     [SerializeField] private GameObject rocketPrefab;
-    
+    [SerializeField] private float energyCost = 0.6f;
+
+    private PlayerEnergy _playerEnergy;
+
     public override void Construct()
     {
         stateName = "Rocket missile";
+        _playerEnergy = GetComponent<PlayerEnergy>();
     }
     
     // _______------------____________
@@ -31,8 +35,17 @@ public class RocketMissileState : BaseState
             {
                 // Instantiate rocket above this point 
                 Quaternion rot = new Quaternion(0, 0, 180, -1);
-                Instantiate(rocketPrefab, hit.point + Vector3.up * 10, rot);
+                if (_playerEnergy.CurrentEnergy >= energyCost)
+                {
+                    _playerEnergy.DecreaseEnergy(energyCost);
+                    Instantiate(rocketPrefab, hit.point + Vector3.up * 10, rot);
+                } else Debug.Log("Not enough energy!");
             }
+        }
+
+        if (playerMotor.IsDead)
+        {
+            playerMotor.ChangeState(GetComponent<DeathState>());
         }
         // other transitions here:
         // Idle state
