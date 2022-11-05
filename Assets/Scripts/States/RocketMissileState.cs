@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,15 @@ public class RocketMissileState : BaseState
 
     private PlayerEnergy _playerEnergy;
 
+    private void Start()
+    {
+        _playerEnergy = GetComponent<PlayerEnergy>();
+    }
+
     public override void Construct()
     {
         stateName = "Rocket missile";
-        _playerEnergy = GetComponent<PlayerEnergy>();
+        playerMotor.StopMoving();
     }
     
     // _______------------____________
@@ -39,8 +45,13 @@ public class RocketMissileState : BaseState
                 {
                     _playerEnergy.DecreaseEnergy(energyCost);
                     Instantiate(rocketPrefab, hit.point + Vector3.up * 10, rot);
-                } else Debug.Log("Not enough energy!");
+                } else UIController.Instance.ShowInfoScreen();
             }
+        }
+
+        if (playerMotor.IsRocketing == false)
+        {
+            playerMotor.ChangeState(GetComponent<IdleState>());
         }
 
         if (playerMotor.IsDead)
