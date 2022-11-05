@@ -11,11 +11,16 @@ public class UIController : MonoBehaviour
     public static UIController Instance;
 
     [SerializeField] private PlayerMotor playerMotor;
+    [Space]
     [SerializeField] private GameObject gameOverDeathScreen;
     [SerializeField] private GameObject gameOverWinScreen;
+    [Space]
     [SerializeField] private Text goalAmountText;
     [SerializeField] private Text currentAmountText;
-
+    [Space]
+    [SerializeField] private GameObject infoScreen;
+    [SerializeField] private float infoShowingTime = 2.0f;
+    [Space]
     // GameObjects references
     [SerializeField] private GameObject pickaxeGameObject;
     [SerializeField] private GameObject gunGameObject;
@@ -97,5 +102,16 @@ public class UIController : MonoBehaviour
         {
             playerMotor.StopRocketing();
         }
+    }
+
+    public void ShowInfoScreen()
+    {
+        infoScreen.SetActive(true);
+        Invoke(nameof(HideInfoScreen), infoShowingTime);
+    }
+
+    private void HideInfoScreen()
+    {
+        infoScreen.SetActive(false);
     }
 }
