@@ -10,6 +10,7 @@ public class PlayerMotor : MonoBehaviour {
     private Transform _target;		// Target to follow
     private NavMeshAgent _agent;		// Reference to our agent
     private Animator _animator;
+    private Rigidbody _rb;
 
     private bool _isRunning = false;
     private bool _isFighting = false;
@@ -49,6 +50,7 @@ public class PlayerMotor : MonoBehaviour {
     void Start () {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
 
         _state = GetComponent<IdleState>();
         _state.Construct();
@@ -87,9 +89,17 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
     }
+
+    public void StopMoving()
+    {
+        _agent.isStopped = true;
+        _animator.SetBool(animRunningBoolName, false);
+        _isRunning = false;
+    }
 	
     public void MoveToPoint (Vector3 point)
     {
+        _agent.isStopped = false;
         _agent.SetDestination(point);
         _animator.SetBool(animRunningBoolName, true);
         _isRunning = true;
@@ -174,14 +184,12 @@ public class PlayerMotor : MonoBehaviour {
     {
         _isRocketing = true;
         _canMining = false;
-        ChangeState(GetComponent<RocketMissileState>());
     }
 
     public void StopRocketing()
     {
         _isRocketing = false;
         _canMining = true;
-        ChangeState(GetComponent<IdleState>());
     }
 
     private void OnCollisionEnter(Collision collision)
