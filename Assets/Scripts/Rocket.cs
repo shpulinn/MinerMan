@@ -8,8 +8,8 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float damageRadius = 5.0f;
     [SerializeField] private float damage = 10.0f;
     [SerializeField] private GameObject explosionPrefab;
-    
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter(Collision collision)
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         MakeDamage();
