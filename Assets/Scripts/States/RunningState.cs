@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RunningState : BaseState
@@ -6,7 +7,15 @@ public class RunningState : BaseState
     private FightingState _fightingState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
-    
+
+    private void Start()
+    {
+        _idleState = GetComponent<IdleState>();
+        _fightingState = GetComponent<FightingState>();
+        _rocketMissileState = GetComponent<RocketMissileState>();
+        _deathState = GetComponent<DeathState>();
+    }
+
     public override void Construct()
     {
         stateName = "Run";
