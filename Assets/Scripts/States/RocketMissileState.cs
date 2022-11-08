@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RocketMissileState : BaseState
@@ -9,10 +6,16 @@ public class RocketMissileState : BaseState
     [SerializeField] private float energyCost = 0.6f;
 
     private PlayerEnergy _playerEnergy;
+    
+    private IdleState _idleState;
+    private DeathState _deathState;
 
     private void Start()
     {
         _playerEnergy = GetComponent<PlayerEnergy>();
+
+        _idleState = GetComponent<IdleState>();
+        _deathState = GetComponent<DeathState>();
     }
 
     public override void Construct()
@@ -51,17 +54,12 @@ public class RocketMissileState : BaseState
 
         if (playerMotor.IsRocketing == false)
         {
-            playerMotor.ChangeState(GetComponent<IdleState>());
+            playerMotor.ChangeState(_idleState);
         }
 
         if (playerMotor.IsDead)
         {
-            playerMotor.ChangeState(GetComponent<DeathState>());
+            playerMotor.ChangeState(_deathState);
         }
-        // other transitions here:
-        // Idle state
-        // Running state
-        // Fighting state
-        // Death state
     }
 }

@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RunningState : BaseState
 {
+    private IdleState _idleState;
+    private FightingState _fightingState;
+    private RocketMissileState _rocketMissileState;
+    private DeathState _deathState;
+    
     public override void Construct()
     {
         stateName = "Run";
@@ -36,21 +39,22 @@ public class RunningState : BaseState
         // when player reached position
         if (playerMotor.IsRunning == false)
         {
-            playerMotor.ChangeState(GetComponent<IdleState>());
+            playerMotor.ChangeState(_idleState);
         }
 
         if (playerMotor.IsRocketing)
         {
-            playerMotor.ChangeState(GetComponent<RocketMissileState>());
+            playerMotor.ChangeState(_rocketMissileState);
         }
 
         if (playerMotor.IsDead)
         {
-            playerMotor.ChangeState(GetComponent<DeathState>());
+            playerMotor.ChangeState(_deathState);
         }
-        // other transitions here:
-        // Fighting state
-        // RocketMissile state 
-        // Death state
+
+        if (playerMotor.IsFighting)
+        {
+            playerMotor.ChangeState(_fightingState);
+        }
     }
 }

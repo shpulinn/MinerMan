@@ -1,9 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FightingState : BaseState
 {
+    private IdleState _idleState;
+    private RunningState _runningState;
+    private RocketMissileState _rocketMissileState;
+    private DeathState _deathState;
+
+    private void Start()
+    {
+        _idleState = GetComponent<IdleState>();
+        _runningState = GetComponent<RunningState>();
+        _rocketMissileState = GetComponent<RocketMissileState>();
+        _deathState = GetComponent<DeathState>();
+    }
+    
     public override void Construct()
     {
         stateName = "Fighting";
@@ -23,25 +34,24 @@ public class FightingState : BaseState
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Move player to click position
-                GetComponent<RunningState>().MoveToPoint(hit.point);
-                playerMotor.ChangeState(GetComponent<RunningState>());
+                // Move player to click position, but still in fight state 
+                _runningState.MoveToPoint(hit.point);
             }
         }
 
         if (playerMotor.IsFighting == false)
         {
-            playerMotor.ChangeState(GetComponent<IdleState>());
+            playerMotor.ChangeState(_idleState);
         }
 
         if (playerMotor.IsDead)
         {
-            playerMotor.ChangeState(GetComponent<DeathState>());
+            playerMotor.ChangeState(_deathState);
         }
-        // other transitions here:
-        // Idle state
-        // Running state
-        // RocketMissile state 
-        // Death state
+
+        if (playerMotor.IsRocketing)
+        {
+            playerMotor.ChangeState(_rocketMissileState);
+        }
     }
 }

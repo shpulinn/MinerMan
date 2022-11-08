@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MiningState : BaseState
@@ -12,22 +10,48 @@ public class MiningState : BaseState
 
     private PlayerEnergy _playerEnergy;
     private LevelGoal _levelGoal;
+    private Animator _animator;
+
+    private int _isMiningAnimBoolID;
     
     private enum CrystalTypes
     {
         Energy,
         Crystal
     }
-    
+
+    private IdleState _idleState;
+    private RunningState _runningState;
+    private FightingState _fightingState;
+    private RocketMissileState _rocketMissileState;
+    private DeathState _deathState;
+
+    private void Start()
+    {
+        _idleState = GetComponent<IdleState>();
+        _runningState = GetComponent<RunningState>();
+        _fightingState = GetComponent<FightingState>();
+        _rocketMissileState = GetComponent<RocketMissileState>();
+        _deathState = GetComponent<DeathState>();
+        
+        _playerEnergy = GetComponent<PlayerEnergy>();
+        _levelGoal = GetComponent<LevelGoal>();
+        _animator = GetComponent<Animator>();
+
+        AssignAnimationsIDs();
+    }
+
+    private void AssignAnimationsIDs()
+    {
+        _isMiningAnimBoolID = Animator.StringToHash("isMining");
+    }
+
     public override void Construct()
     {
         stateName = "Mining";
 
         miningTime = Random.Range(minMiningTime, maxMiningTime);
-
-        _playerEnergy = GetComponent<PlayerEnergy>();
-        _levelGoal = GetComponent<LevelGoal>();
-
+        
         if (playerMotor.CanMiningEnergy)
         {
             Mine(CrystalTypes.Energy); 
@@ -41,7 +65,7 @@ public class MiningState : BaseState
 
     public override void Destruct()
     {
-        GetComponent<Animator>().SetBool("isMining", false);
+        _animator.SetBool(_isMiningAnimBoolID, false);
         playerMotor.CanMiningEnergy = false;
         playerMotor.CanMiningCrystal = false;
     }
@@ -62,30 +86,25 @@ public class MiningState : BaseState
             if (Physics.Raycast(ray, out hit))
             {
                 // Move player to click position
-                GetComponent<RunningState>().MoveToPoint(hit.point);
-                playerMotor.ChangeState(GetComponent<RunningState>());
+                _runningState.MoveToPoint(hit.point);
+                playerMotor.ChangeState(_runningState);
             }
         }
 
-        if (playerMotor.IsFighting == true)
+        if (playerMotor.IsFighting)
         {
-            playerMotor.ChangeState(GetComponent<FightingState>());
+            playerMotor.ChangeState(_fightingState);
         }
 
-        if (playerMotor.IsRocketing == true)
+        if (playerMotor.IsRocketing)
         {
-            playerMotor.ChangeState(GetComponent<RocketMissileState>());
+            playerMotor.ChangeState(_rocketMissileState);
         }
 
         if (playerMotor.IsDead)
         {
-            playerMotor.ChangeState(GetComponent<DeathState>());
+            playerMotor.ChangeState(_deathState);
         }
-        // other transitions here:
-        // Running state
-        // Fighting state
-        // RocketMissile state 
-        // Death state
     }
 
     private void Mine(CrystalTypes type)
@@ -93,11 +112,11 @@ public class MiningState : BaseState
         switch (type)
         {
             case CrystalTypes.Energy:
-                GetComponent<Animator>().SetBool("isMining", true);
+                _animator.SetBool(_isMiningAnimBoolID, true);
                 Invoke(nameof(StopMiningEnergy), miningTime);
                 break;
             case CrystalTypes.Crystal:
-                GetComponent<Animator>().SetBool("isMining", true);
+                _animator.SetBool(_isMiningAnimBoolID, true);
                 Invoke(nameof(StopMiningCrystal), miningTime);
                 break;
         }
@@ -111,7 +130,7 @@ public class MiningState : BaseState
         }
         playerMotor.DestroyMiningObject();
         _playerEnergy.IncreaseEnergy(energyMiningValue);
-        playerMotor.ChangeState(GetComponent<IdleState>());
+        playerMotor.ChangeState(_idleState);
     }
     
     private void StopMiningCrystal()
@@ -122,6 +141,6 @@ public class MiningState : BaseState
         }
         playerMotor.DestroyMiningObject();
         _levelGoal.GatherCrystal();
-        playerMotor.ChangeState(GetComponent<IdleState>());
+        playerMotor.ChangeState(_idleState);
     }
 }

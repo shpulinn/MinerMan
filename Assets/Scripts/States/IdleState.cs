@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleState : BaseState
@@ -41,10 +38,6 @@ public class IdleState : BaseState
             if (Physics.Raycast(ray, out hit))
             {
                 // Move player to click position
-                
-                //GetComponent<RunningState>().MoveToPoint(hit.point);
-                //playerMotor.ChangeState(GetComponent<RunningState>());
-                
                 _runningState.MoveToPoint(hit.point);
                 playerMotor.ChangeState(_runningState);
             }
@@ -52,25 +45,21 @@ public class IdleState : BaseState
 
         if (playerMotor.CanMiningEnergy || playerMotor.CanMiningCrystal)
         {
-            //playerMotor.ChangeState(GetComponent<MiningState>());
             playerMotor.ChangeState(_miningState);
         }
 
         if (playerMotor.IsFighting)
         {
-            //playerMotor.ChangeState(GetComponent<FightingState>());
             playerMotor.ChangeState(_fightingState);
         }
 
         if (playerMotor.IsRocketing)
         {
-            //playerMotor.ChangeState(GetComponent<RocketMissileState>());
             playerMotor.ChangeState(_rocketMissileState);
         }
         
         if (playerMotor.IsDead)
         {
-            //playerMotor.ChangeState(GetComponent<DeathState>());
             playerMotor.ChangeState(_deathState);
         }
     }
