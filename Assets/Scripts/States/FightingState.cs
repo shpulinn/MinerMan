@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FightingState : BaseState
@@ -6,6 +7,13 @@ public class FightingState : BaseState
     private RunningState _runningState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
+
+    [SerializeField] private float visionRadius = 5.0f;
+    [SerializeField] private float damage = 4.0f;
+    [SerializeField] private float reloadingTime = 1.0f;
+    [SerializeField] private ParticleSystem firePartisces;
+
+    private bool _isReloading = false;
 
     private void Start()
     {
@@ -22,6 +30,19 @@ public class FightingState : BaseState
 
     public override void Transition()
     {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, visionRadius);
+        foreach (var col in colliders)
+        {
+            if (col.TryGetComponent(out EnemyHealth enemyHealth))
+            {
+                transform.LookAt(enemyHealth.transform, Vector3.up);
+                if (!_isReloading)
+                {
+                    Shoot(enemyHealth);
+                }
+            }
+        }
+        
         if (InputManager.Instance.Tap)
         {
             Ray ray;
@@ -53,5 +74,20 @@ public class FightingState : BaseState
         {
             playerMotor.ChangeState(_rocketMissileState);
         }
+    }
+
+    private void Shoot(EnemyHealth enemyHealth)
+    {
+        playerMotor.StopMoving();
+        enemyHealth.TakeDamage(damage);
+        firePartisces.Play();
+        StartCoroutine(ReloadCoroutine());
+    }
+
+    private IEnumerator ReloadCoroutine()
+    {
+        _isReloading = true;
+        yield return new WaitForSeconds(reloadingTime);
+        _isReloading = false;
     }
 }
