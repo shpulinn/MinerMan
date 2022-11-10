@@ -6,9 +6,10 @@ public class RocketMissileState : BaseState
     [SerializeField] private float energyCost = 0.6f;
 
     private PlayerEnergy _playerEnergy;
-    
+
     private IdleState _idleState;
     private DeathState _deathState;
+    private InputManager _inputManager;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class RocketMissileState : BaseState
 
         _idleState = GetComponent<IdleState>();
         _deathState = GetComponent<DeathState>();
+        _inputManager = InputManager.Instance;
     }
 
     public override void Construct()
@@ -30,26 +32,15 @@ public class RocketMissileState : BaseState
 
     public override void Transition()
     {
-        if (InputManager.Instance.Tap)
+        if (_inputManager.Tap)
         {
-            Ray ray;
-            if (Application.platform == RuntimePlatform.WindowsEditor)
+            // Instantiate rocket above tap point 
+            Quaternion rot = new Quaternion(0, 0, 180, -1);
+            if (_playerEnergy.CurrentEnergy >= energyCost)
             {
-                ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
-            } else 
-                ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Touchscreen.current.touches[0].position.ReadValue());
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Instantiate rocket above this point 
-                Quaternion rot = new Quaternion(0, 0, 180, -1);
-                if (_playerEnergy.CurrentEnergy >= energyCost)
-                {
-                    _playerEnergy.DecreaseEnergy(energyCost);
-                    Instantiate(rocketPrefab, hit.point + Vector3.up * 10, rot);
-                } else UIController.Instance.ShowInfoScreen();
-            }
+                _playerEnergy.DecreaseEnergy(energyCost);
+                Instantiate(rocketPrefab, _inputManager.TapPosition + Vector3.up * 10, rot);
+            } else UIController.Instance.ShowInfoScreen();
         }
 
         if (playerMotor.IsRocketing == false)
