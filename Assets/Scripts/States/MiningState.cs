@@ -25,6 +25,7 @@ public class MiningState : BaseState
     private FightingState _fightingState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
+    private InputManager _inputManager;
 
     private void Start()
     {
@@ -33,6 +34,8 @@ public class MiningState : BaseState
         _fightingState = GetComponent<FightingState>();
         _rocketMissileState = GetComponent<RocketMissileState>();
         _deathState = GetComponent<DeathState>();
+        
+        _inputManager = InputManager.Instance;
         
         _playerEnergy = GetComponent<PlayerEnergy>();
         _levelGoal = GetComponent<LevelGoal>();
@@ -73,22 +76,10 @@ public class MiningState : BaseState
     public override void Transition()
     {
         // if click while mining => break mining and run
-        if (InputManager.Instance.Tap)
+        if (_inputManager.Tap)
         {
-            Ray ray;
-            if (Application.platform == RuntimePlatform.WindowsEditor)
-            {
-                ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
-            } else 
-                ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Touchscreen.current.touches[0].position.ReadValue());
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Move player to click position
-                _runningState.MoveToPoint(hit.point);
-                playerMotor.ChangeState(_runningState);
-            }
+            _runningState.MoveToPoint(_inputManager.TapPosition);
+            playerMotor.ChangeState(_runningState);
         }
 
         if (playerMotor.IsFighting)
