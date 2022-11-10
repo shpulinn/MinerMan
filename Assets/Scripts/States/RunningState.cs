@@ -7,6 +7,7 @@ public class RunningState : BaseState
     private FightingState _fightingState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
+    private InputManager _inputManager;
 
     private void Start()
     {
@@ -14,6 +15,7 @@ public class RunningState : BaseState
         _fightingState = GetComponent<FightingState>();
         _rocketMissileState = GetComponent<RocketMissileState>();
         _deathState = GetComponent<DeathState>();
+        _inputManager = InputManager.Instance;
     }
 
     public override void Construct()
@@ -28,21 +30,9 @@ public class RunningState : BaseState
     public override void Transition()
     {
         // player can change direction while running
-        if (InputManager.Instance.Tap)
+        if (_inputManager.Tap)
         {
-            Ray ray;
-            if (Application.platform == RuntimePlatform.WindowsEditor)
-            {
-                ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
-            } else 
-                ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Touchscreen.current.touches[0].position.ReadValue());
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Move player to click position
-                MoveToPoint(hit.point);
-            }
+            MoveToPoint(_inputManager.TapPosition);
         }
         
         // when player reached position
