@@ -6,6 +6,9 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
+    [SerializeField] private LayerMask clickableLayerMask;
+    [SerializeField] private GameObject arrowFX;
+
     // Input action schemes
     private InputActions _inputActions;
 
@@ -14,10 +17,16 @@ public class InputManager : MonoBehaviour
 
     private bool _inputUI;
 
+    private Vector3 _tapPosition;
+
+    private Camera _mainCamera;
+
     #region Properties
 
     public bool Tap => _tap;
     public bool Swipe => _swipe;
+
+    public Vector3 TapPosition => _tapPosition;
 
     #endregion
     
@@ -33,6 +42,7 @@ public class InputManager : MonoBehaviour
     private void SetupControls()
     {
         _inputActions = new InputActions();
+        _mainCamera = Camera.main;
         
         // Register actions
         _inputActions.Main.Tap.performed += ctx => OnTap(ctx);
@@ -49,6 +59,20 @@ public class InputManager : MonoBehaviour
         if (_inputUI)
             return;
         _tap = true;
+        Ray ray;
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            ray = _mainCamera.ScreenPointToRay(MousePosition);
+        } else 
+            ray = _mainCamera.ScreenPointToRay(Touchscreen.current.touches[0].position.ReadValue());
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickableLayerMask))
+        {
+            arrowFX.transform.position = hit.point;
+            _tapPosition = hit.point;
+        }
+        ShowArrows();
     }
     
     private void OnSwipe(InputAction.CallbackContext ctx)
@@ -81,5 +105,10 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         _inputActions.Disable();
+    }
+
+    private void ShowArrows()
+    {
+        arrowFX.SetActive(true);
     }
 }
