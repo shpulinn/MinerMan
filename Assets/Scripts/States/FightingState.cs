@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FightingState : BaseState
@@ -7,11 +9,18 @@ public class FightingState : BaseState
     private RunningState _runningState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
+    private InputManager _inputManager;
 
+    [SerializeField] private float cameraRotationSpeed = 5.0f;
     [SerializeField] private float visionRadius = 5.0f;
     [SerializeField] private float damage = 4.0f;
     [SerializeField] private float reloadingTime = 1.0f;
     [SerializeField] private ParticleSystem firePartisces;
+    [SerializeField] private LayerMask enemyLayerMask;
+    [Header("Gizmos showing vision radius for player shooting")]
+    [SerializeField] private Color gizmosColor;
+
+    [SerializeField] private List<EnemyHealth> enemyHealths = new List<EnemyHealth>();
 
     private bool _isReloading = false;
 
@@ -21,6 +30,8 @@ public class FightingState : BaseState
         _runningState = GetComponent<RunningState>();
         _rocketMissileState = GetComponent<RocketMissileState>();
         _deathState = GetComponent<DeathState>();
+        
+        _inputManager = InputManager.Instance;
     }
     
     public override void Construct()
@@ -30,34 +41,22 @@ public class FightingState : BaseState
 
     public override void Transition()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, visionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, visionRadius, enemyLayerMask);
         foreach (var col in colliders)
         {
-            if (col.TryGetComponent(out EnemyHealth enemyHealth))
+            Transform nearestEnemy = GetClosestEnemy(colliders);
+            Vector3 relativePos = nearestEnemy.position - transform.position;
+            //transform.rotation = Quaternion.LookRotation(relativePos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * cameraRotationSpeed);
+            if (!_isReloading)
             {
-                transform.LookAt(enemyHealth.transform, Vector3.up);
-                if (!_isReloading)
-                {
-                    Shoot(enemyHealth);
-                }
+                Shoot(nearestEnemy.GetComponent<EnemyHealth>());
             }
         }
-        
-        if (InputManager.Instance.Tap)
-        {
-            Ray ray;
-            if (Application.platform == RuntimePlatform.WindowsEditor)
-            {
-                ray = Camera.main.ScreenPointToRay(InputManager.Instance.MousePosition);
-            } else 
-                ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Touchscreen.current.touches[0].position.ReadValue());
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Move player to click position, but still in fight state 
-                _runningState.MoveToPoint(hit.point);
-            }
+        if (_inputManager.Tap)
+        {
+            _runningState.MoveToPoint(_inputManager.TapPosition);
         }
 
         if (playerMotor.IsFighting == false)
@@ -78,6 +77,10 @@ public class FightingState : BaseState
 
     private void Shoot(EnemyHealth enemyHealth)
     {
+        if (enemyHealth == null)
+        {
+            return;
+        }
         playerMotor.StopMoving();
         enemyHealth.TakeDamage(damage);
         firePartisces.Play();
@@ -89,5 +92,35 @@ public class FightingState : BaseState
         _isReloading = true;
         yield return new WaitForSeconds(reloadingTime);
         _isReloading = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = gizmosColor;
+        Gizmos.DrawSphere(transform.position, visionRadius);
+    }
+    
+    private Transform GetClosestEnemy (Collider[] enemies)
+    {
+        List<Transform> enemiesTransform = new List<Transform>();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemiesTransform.Add(enemies[i].transform);
+        }
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach(Transform potentialTarget in enemiesTransform)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if(dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+     
+        return bestTarget;
     }
 }
