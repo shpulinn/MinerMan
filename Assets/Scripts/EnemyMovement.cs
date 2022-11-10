@@ -42,7 +42,6 @@ public class EnemyMovement : MonoBehaviour
         _meshAgent.speed = moveSpeed;
         _meshAgent.angularSpeed = rotationSpeed;
         _startPosition = transform.position;
-        //_player = GameObject.Find("Player");
         _sphereCollider = GetComponent<SphereCollider>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _sphereCollider.radius = visionRadius;
