@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +13,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float stopFollowingDistance = 7.0f; 
     [SerializeField] private List<Transform> wayPoints = new List<Transform>();
     private int _currentWayPointIndex;
+    private Animator _animator;
+    private int _isWalkingAnimationID;
+    
+    private const string PlayerTag = "Player";
 
     public enum EnemyType
     {
@@ -28,11 +30,12 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 _startPosition;
     private GameObject _player;
     private SphereCollider _sphereCollider;
+    private CapsuleCollider _capsuleCollider;
 
     private bool _isChasing = false;
     private bool _isGuarding = false;
     private bool _isPatrolling = false;
-
+    
     private void Start()
     {
         _meshAgent = GetComponent<NavMeshAgent>();
@@ -41,9 +44,12 @@ public class EnemyMovement : MonoBehaviour
         _startPosition = transform.position;
         //_player = GameObject.Find("Player");
         _sphereCollider = GetComponent<SphereCollider>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
         _sphereCollider.radius = visionRadius;
         _sphereCollider.isTrigger = true;
         _currentWayPointIndex = 0;
+        _animator = GetComponent<Animator>();
+        _isWalkingAnimationID = Animator.StringToHash("IsWalking");
         
         switch (enemyType)
         {
@@ -58,7 +64,16 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckDistance();
+        // Play walk animation if enemy has path => moving
+        if (_meshAgent.hasPath)
+        {
+            _animator.SetBool(_isWalkingAnimationID, true);
+        } else _animator.SetBool(_isWalkingAnimationID, false); // if enemy has no path => standing idle 
+        
+        if (_isPatrolling)
+        {
+            CheckDistance();
+        }
     }
 
     private void CheckDistance()
@@ -79,7 +94,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent(out PlayerMotor playerMotor))
+        if (other.CompareTag(PlayerTag))
         {
             _player = other.gameObject;
             StartChasingPlayer();
@@ -111,7 +126,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void StartGuarding()
     {
-        _isPatrolling = true;
+        _isGuarding = true;
         if (Vector3.Distance(transform.position, _startPosition) > _meshAgent.stoppingDistance)
         {
             _meshAgent.SetDestination(_startPosition);
@@ -130,6 +145,14 @@ public class EnemyMovement : MonoBehaviour
                 StartPatrol();
                 break;
         }
-        
+    }
+
+    public void DeathAction()
+    {
+        _meshAgent.isStopped = true;
+        // disabling colliders to reset camera 
+        // (because player with camera rotates to nearest enemy collider)
+        _capsuleCollider.enabled = false;
+        _sphereCollider.enabled = false;
     }
 }
