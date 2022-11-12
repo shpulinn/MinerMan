@@ -861,7 +861,7 @@ MonoBehaviour:
   visionRadius: 7
   moveSpeed: 2
   rotationSpeed: 100
-  stopFollowingDistance: 7
+  stopFollowingDistance: 6
   wayPoints: []
   enemyType: 0
 --- !u!114 &8488649081155706979
