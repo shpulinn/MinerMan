@@ -20,7 +20,9 @@ public class PlayerMotor : MonoBehaviour {
     private bool _canMiningEnergy = false;
     private bool _canMiningCrystal = false;
 
-    private const string animRunningBoolName = "isRunning";
+    private int animRunningBool;
+    private int animFightingBool;
+    private int animDeadBool;
 
     private BaseState _state;
 
@@ -46,6 +48,10 @@ public class PlayerMotor : MonoBehaviour {
         set { _canMiningCrystal = value; }
     }
 
+    private const string EnemyTag = "Enemy";
+    private const string CrystalTag = "Crystal";
+    private const string EnergyCrystalTag = "EnergyCrystal";
+
     // Get references
     void Start () {
         _agent = GetComponent<NavMeshAgent>();
@@ -54,6 +60,15 @@ public class PlayerMotor : MonoBehaviour {
 
         _state = GetComponent<IdleState>();
         _state.Construct();
+
+        AssignAnimationID();
+    }
+
+    private void AssignAnimationID()
+    {
+        animFightingBool = Animator.StringToHash("isFighting");
+        animRunningBool = Animator.StringToHash("isRunning");
+        animDeadBool = Animator.StringToHash("isDead");
     }
 
     void Update ()
@@ -83,7 +98,7 @@ public class PlayerMotor : MonoBehaviour {
             {
                 if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                 {
-                    _animator.SetBool(animRunningBoolName, false);
+                    _animator.SetBool(animRunningBool, false);
                     _isRunning = false;
                 }
             }
@@ -93,7 +108,7 @@ public class PlayerMotor : MonoBehaviour {
     public void StopMoving()
     {
         _agent.isStopped = true;
-        _animator.SetBool(animRunningBoolName, false);
+        _animator.SetBool(animRunningBool, false);
         _isRunning = false;
     }
 	
@@ -101,7 +116,7 @@ public class PlayerMotor : MonoBehaviour {
     {
         _agent.isStopped = false;
         _agent.SetDestination(point);
-        _animator.SetBool(animRunningBoolName, true);
+        _animator.SetBool(animRunningBool, true);
         _isRunning = true;
     }
     
@@ -117,14 +132,14 @@ public class PlayerMotor : MonoBehaviour {
         if (_canMining == false)
             return;
 
-        if (other.CompareTag("EnergyCrystal") && _isRunning == false)
+        if (other.CompareTag(EnergyCrystalTag) && _isRunning == false)
         {
             _canMiningEnergy = true;
             _destroyable = other.gameObject;
         }
         else _canMiningEnergy = false;
 
-        if (other.CompareTag("Crystal") && _isRunning == false)
+        if (other.CompareTag(CrystalTag) && _isRunning == false)
         {
             _canMiningCrystal = true;
             _destroyable = other.gameObject;
@@ -168,14 +183,14 @@ public class PlayerMotor : MonoBehaviour {
 
     public void TakeGun()
     {
-        _animator.SetBool("isFighting", true);
+        _animator.SetBool(animFightingBool, true);
         _isFighting = true;
         _canMining = false;
     }
 
     public void TakePickaxe()
     {
-        _animator.SetBool("isFighting", false);
+        _animator.SetBool(animFightingBool, false);
         _isFighting = false;
         _canMining = true;
     }
@@ -195,10 +210,10 @@ public class PlayerMotor : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.collider.name);
-        if (collision.collider.CompareTag("Enemy"))
+        if (collision.collider.CompareTag(EnemyTag))
         {
             _isDead = true;
-            _animator.SetBool("isDead", true);
+            _animator.SetBool(animDeadBool, true);
         }
     }
 }
