@@ -11,10 +11,15 @@ public class FightingState : BaseState
     private DeathState _deathState;
     private InputManager _inputManager;
 
+    private PlayerEnergy _playerEnergy;
+
+    [Header("Gun settings")]
+    [SerializeField] private float damage = 4.0f;
+    [SerializeField] private float energyCost = 0.2f;
+    [SerializeField] private float reloadingTime = 1.0f;
+    [Space]
     [SerializeField] private float cameraRotationSpeed = 5.0f;
     [SerializeField] private float visionRadius = 5.0f;
-    [SerializeField] private float damage = 4.0f;
-    [SerializeField] private float reloadingTime = 1.0f;
     [SerializeField] private ParticleSystem firePartisces;
     [SerializeField] private LayerMask enemyLayerMask;
     [Header("Gizmos showing vision radius for player shooting")]
@@ -32,6 +37,7 @@ public class FightingState : BaseState
         _deathState = GetComponent<DeathState>();
         
         _inputManager = InputManager.Instance;
+        _playerEnergy = GetComponent<PlayerEnergy>();
     }
     
     public override void Construct()
@@ -41,6 +47,13 @@ public class FightingState : BaseState
 
     public override void Transition()
     {
+        if (_playerEnergy.CurrentEnergy < energyCost)
+        {
+            UIController.Instance.ShowInfoScreen();
+            playerMotor.ChangeState(_idleState);
+            return;
+        }
+        
         Collider[] colliders = Physics.OverlapSphere(transform.position, visionRadius, enemyLayerMask);
         foreach (var col in colliders)
         {
@@ -81,6 +94,7 @@ public class FightingState : BaseState
         {
             return;
         }
+        _playerEnergy.DecreaseEnergy(energyCost);
         playerMotor.StopMoving();
         enemyHealth.TakeDamage(damage);
         firePartisces.Play();
