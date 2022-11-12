@@ -10,6 +10,9 @@ public class RocketMissileState : BaseState
     private IdleState _idleState;
     private DeathState _deathState;
     private InputManager _inputManager;
+    private Animator _animator;
+
+    private int IsRocketingAnimID;
 
     private void Start()
     {
@@ -17,6 +20,8 @@ public class RocketMissileState : BaseState
 
         _idleState = GetComponent<IdleState>();
         _deathState = GetComponent<DeathState>();
+        _animator = GetComponent<Animator>();
+        IsRocketingAnimID = Animator.StringToHash("isRocketing");
         _inputManager = InputManager.Instance;
     }
 
@@ -24,11 +29,9 @@ public class RocketMissileState : BaseState
     {
         stateName = "Rocket missile";
         playerMotor.StopMoving();
+        _animator.SetBool(IsRocketingAnimID, true);
+        UIController.Instance.HideActiveItem();
     }
-    
-    // _______------------____________
-    // Animation: player with telephone (radio) calls for air strike
-    // ---------_________-------------
 
     public override void Transition()
     {
@@ -40,7 +43,10 @@ public class RocketMissileState : BaseState
             {
                 _playerEnergy.DecreaseEnergy(energyCost);
                 Instantiate(rocketPrefab, _inputManager.TapPosition + Vector3.up * 10, rot);
-            } else UIController.Instance.ShowInfoScreen();
+                playerMotor.ChangeState(_idleState);
+                UIController.Instance.ExitRocketing();
+            }
+            else UIController.Instance.ShowInfoScreen();
         }
 
         if (playerMotor.IsRocketing == false)
@@ -52,5 +58,11 @@ public class RocketMissileState : BaseState
         {
             playerMotor.ChangeState(_deathState);
         }
+    }
+
+    public override void Destruct()
+    {
+        _animator.SetBool(IsRocketingAnimID, false);
+        UIController.Instance.ShowHiddenItem();
     }
 }
