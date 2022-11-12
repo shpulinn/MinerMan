@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
     [Space]
     [SerializeField] private Text goalAmountText;
     [SerializeField] private Text currentAmountText;
+    [SerializeField] private Toggle rocketToggle;
     [Space]
     [SerializeField] private GameObject infoScreen;
     [SerializeField] private float infoShowingTime = 2.0f;
@@ -24,6 +25,8 @@ public class UIController : MonoBehaviour
     // GameObjects references
     [SerializeField] private GameObject pickaxeGameObject;
     [SerializeField] private GameObject gunGameObject;
+
+    private GameObject _hiddenItem = null;
 
     private void Awake()
     {
@@ -107,11 +110,44 @@ public class UIController : MonoBehaviour
     public void ShowInfoScreen()
     {
         infoScreen.SetActive(true);
+        if (playerMotor.IsRocketing)
+        {
+            playerMotor.StopRocketing();
+            ExitRocketing();
+        }
+
+        if (playerMotor.IsFighting)
+        {
+            gunGameObject.SetActive(false);
+            pickaxeGameObject.SetActive(true);
+            playerMotor.TakePickaxe();
+        }
         Invoke(nameof(HideInfoScreen), infoShowingTime);
     }
 
     private void HideInfoScreen()
     {
         infoScreen.SetActive(false);
+    }
+
+    public void ExitRocketing()
+    {
+        rocketToggle.isOn = false;
+    }
+
+    public void HideActiveItem()
+    {
+        if (pickaxeGameObject.activeSelf)
+        {
+            _hiddenItem = pickaxeGameObject;
+        }
+        else _hiddenItem = gunGameObject;
+        
+        _hiddenItem.gameObject.SetActive(false);
+    }
+
+    public void ShowHiddenItem()
+    {
+        _hiddenItem.gameObject.SetActive(true);
     }
 }
