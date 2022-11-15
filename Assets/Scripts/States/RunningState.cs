@@ -22,10 +22,6 @@ public class RunningState : BaseState
     {
         stateName = "Run";
     }
-    public override void MoveToPoint(Vector3 point)
-    {
-        playerMotor.MoveToPoint(point);
-    }
 
     public override void Transition()
     {
