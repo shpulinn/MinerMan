@@ -5,7 +5,10 @@ using UnityEngine.AI;
 /* This component moves our player using a NavMeshAgent. */
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerMotor : MonoBehaviour {
+public class PlayerMotor : MonoBehaviour
+{
+
+    [SerializeField] private float _movementSpeed = 4.0f;
 
     private Transform _target;		// Target to follow
     private NavMeshAgent _agent;		// Reference to our agent
@@ -55,6 +58,7 @@ public class PlayerMotor : MonoBehaviour {
     // Get references
     void Start () {
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = _movementSpeed;
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
 
@@ -119,6 +123,14 @@ public class PlayerMotor : MonoBehaviour {
         _animator.SetBool(animRunningBool, true);
         _isRunning = true;
     }
+
+    public void MoveToDirection(Vector3 direction)
+    {
+        _agent.isStopped = false;
+        _agent.SetDestination(direction);
+        _animator.SetBool(animRunningBool, true);
+        _isRunning = true;
+    }
     
     public void ChangeState(BaseState state)
     {
@@ -136,6 +148,7 @@ public class PlayerMotor : MonoBehaviour {
         {
             _canMiningEnergy = true;
             _destroyable = other.gameObject;
+            transform.LookAt(_destroyable.transform);
         }
         else _canMiningEnergy = false;
 
@@ -143,6 +156,7 @@ public class PlayerMotor : MonoBehaviour {
         {
             _canMiningCrystal = true;
             _destroyable = other.gameObject;
+            transform.LookAt(_destroyable.transform);
         }
         else _canMiningCrystal = false;
     }
@@ -209,7 +223,6 @@ public class PlayerMotor : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.collider.name);
         if (collision.collider.CompareTag(EnemyTag))
         {
             _isDead = true;
