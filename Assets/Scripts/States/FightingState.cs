@@ -10,6 +10,8 @@ public class FightingState : BaseState
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
     private InputManager _inputManager;
+    private Animator _animator;
+    private int _motionAnimationID;
 
     private PlayerEnergy _playerEnergy;
 
@@ -18,7 +20,6 @@ public class FightingState : BaseState
     [SerializeField] private float energyCost = 0.2f;
     [SerializeField] private float reloadingTime = 1.0f;
     [Space]
-    [SerializeField] private float cameraRotationSpeed = 5.0f;
     [SerializeField] private float visionRadius = 5.0f;
     [SerializeField] private ParticleSystem firePartisces;
     [SerializeField] private LayerMask enemyLayerMask;
@@ -35,6 +36,9 @@ public class FightingState : BaseState
         _runningState = GetComponent<RunningState>();
         _rocketMissileState = GetComponent<RocketMissileState>();
         _deathState = GetComponent<DeathState>();
+
+        _animator = GetComponent<Animator>();
+        _motionAnimationID = Animator.StringToHash("Motion");
         
         _inputManager = InputManager.Instance;
         _playerEnergy = GetComponent<PlayerEnergy>();
@@ -58,9 +62,7 @@ public class FightingState : BaseState
         foreach (var col in colliders)
         {
             Transform nearestEnemy = GetClosestEnemy(colliders);
-            Vector3 relativePos = nearestEnemy.position - transform.position;
-            //transform.rotation = Quaternion.LookRotation(relativePos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * cameraRotationSpeed);
+            transform.LookAt(nearestEnemy);
             if (!_isReloading)
             {
                 Shoot(nearestEnemy.GetComponent<EnemyHealth>());
@@ -70,6 +72,11 @@ public class FightingState : BaseState
         if (_inputManager.Joystick)
         {
             playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
+            if (_inputManager.MoveVector.x - Vector3.forward.x < 0 &&
+                _inputManager.MoveVector.z - Vector3.forward.z < 0)
+            {
+                _animator.SetFloat(_motionAnimationID, -1);
+            } else _animator.SetFloat(_motionAnimationID, 1);
         }
 
         if (playerMotor.IsFighting == false)
