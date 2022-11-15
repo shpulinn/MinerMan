@@ -11,7 +11,8 @@ public class UIController : MonoBehaviour
     public static UIController Instance;
 
     [SerializeField] private PlayerMotor playerMotor;
-    [Space]
+    [Space] 
+    [SerializeField] private GameObject joystickUI;
     [SerializeField] private GameObject gameOverDeathScreen;
     [SerializeField] private GameObject gameOverWinScreen;
     [Space]
@@ -53,11 +54,13 @@ public class UIController : MonoBehaviour
     public void ShowDeathScreen()
     {
         gameOverDeathScreen.SetActive(true);
+        joystickUI.SetActive(false);
     }
 
     public void ShowWinScreen()
     {
         gameOverWinScreen.SetActive(true);
+        joystickUI.SetActive(false);
     }
 
     public void SetGoalAmount(int amount)
