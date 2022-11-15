@@ -77,20 +77,11 @@ public class PlayerMotor : MonoBehaviour
 
     void Update ()
     {
-        // If we have a target
-        // if (_target != null)
-        // {
-        //     // Move towards it and look at it
-        //     _agent.SetDestination(_target.position);
-        //     FaceTarget();
-        // }
-        
         UpdateMotor();
     }
 
     private void UpdateMotor()
     {
-        //Debug.Log("Current state is: " + _state.stateName);
         // Are we changing state?
         _state.Transition();
         
@@ -114,14 +105,6 @@ public class PlayerMotor : MonoBehaviour
         _agent.isStopped = true;
         _animator.SetBool(animRunningBool, false);
         _isRunning = false;
-    }
-	
-    public void MoveToPoint (Vector3 point)
-    {
-        _agent.isStopped = false;
-        _agent.SetDestination(point);
-        _animator.SetBool(animRunningBool, true);
-        _isRunning = true;
     }
 
     public void MoveToDirection(Vector3 direction)
@@ -167,32 +150,6 @@ public class PlayerMotor : MonoBehaviour
         {
             Destroy(_destroyable);
         }
-    }
-
-    // Start following a target
-    // public void FollowTarget (Interactable newTarget)
-    // {
-    //     agent.stoppingDistance = newTarget.radius * .8f;
-    //     agent.updateRotation = false;
-    //
-    //     target = newTarget.interactionTransform;
-    // }
-
-    // Stop following a target
-    public void StopFollowingTarget ()
-    {
-        _agent.stoppingDistance = 0f;
-        _agent.updateRotation = true;
-
-        _target = null;
-    }
-
-    // Make sure to look at the target
-    void FaceTarget ()
-    {
-        Vector3 direction = (_target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
     public void TakeGun()
