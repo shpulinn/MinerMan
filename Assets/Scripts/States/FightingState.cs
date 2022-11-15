@@ -57,7 +57,7 @@ public class FightingState : BaseState
             playerMotor.ChangeState(_idleState);
             return;
         }
-        
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, visionRadius, enemyLayerMask);
         foreach (var col in colliders)
         {
