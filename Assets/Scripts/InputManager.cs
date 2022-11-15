@@ -7,17 +7,19 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
 
     [SerializeField] private LayerMask clickableLayerMask;
-    [SerializeField] private GameObject arrowFX;
+    [SerializeField] private Joystick _moveJoystick;
 
     // Input action schemes
     private InputActions _inputActions;
 
     private bool _tap = false;
     private bool _swipe = false;
+    private bool _joystick = false;
 
     private bool _inputUI;
 
     private Vector3 _tapPosition;
+    private Vector3 _moveVector;
 
     private Camera _mainCamera;
 
@@ -26,7 +28,10 @@ public class InputManager : MonoBehaviour
     public bool Tap => _tap;
     public bool Swipe => _swipe;
 
+    public bool Joystick => _joystick;
+
     public Vector3 TapPosition => _tapPosition;
+    public Vector3 MoveVector => _moveVector;
 
     #endregion
     
@@ -69,10 +74,8 @@ public class InputManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickableLayerMask))
         {
-            arrowFX.transform.position = hit.point;
             _tapPosition = hit.point;
         }
-        ShowArrows();
     }
     
     private void OnSwipe(InputAction.CallbackContext ctx)
@@ -88,6 +91,14 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         MousePosition = Mouse.current.position.ReadValue();
+        if (_moveJoystick.Horizontal == 0 && _moveJoystick.Vertical == 0)
+        {
+            _joystick = false;
+            return;
+        }
+
+        _joystick = true;
+        _moveVector = new Vector3(_moveJoystick.Horizontal, 1, _moveJoystick.Vertical);
     }
 
     public void ToggleControl(bool value)
@@ -105,10 +116,5 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         _inputActions.Disable();
-    }
-
-    private void ShowArrows()
-    {
-        arrowFX.SetActive(true);
     }
 }

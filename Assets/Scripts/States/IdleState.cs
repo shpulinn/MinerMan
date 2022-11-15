@@ -26,10 +26,9 @@ public class IdleState : BaseState
     
     public override void Transition()
     {
-        if (_inputManager.Tap)
+        if (_inputManager.Joystick)
         {
-            _runningState.MoveToPoint(_inputManager.TapPosition);
-            playerMotor.ChangeState(_runningState);
+            playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
         }
 
         if (playerMotor.CanMiningEnergy || playerMotor.CanMiningCrystal)

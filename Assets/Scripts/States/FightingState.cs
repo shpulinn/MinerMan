@@ -66,10 +66,10 @@ public class FightingState : BaseState
                 Shoot(nearestEnemy.GetComponent<EnemyHealth>());
             }
         }
-
-        if (_inputManager.Tap)
+        
+        if (_inputManager.Joystick)
         {
-            _runningState.MoveToPoint(_inputManager.TapPosition);
+            playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
         }
 
         if (playerMotor.IsFighting == false)

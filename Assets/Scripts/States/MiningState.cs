@@ -75,10 +75,10 @@ public class MiningState : BaseState
 
     public override void Transition()
     {
-        // if click while mining => break mining and run
-        if (_inputManager.Tap)
+        // if move while mining => break mining and run
+        if (_inputManager.Joystick)
         {
-            _runningState.MoveToPoint(_inputManager.TapPosition);
+            playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
             playerMotor.ChangeState(_runningState);
         }
 

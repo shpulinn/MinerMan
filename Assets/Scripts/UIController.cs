@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
     // GameObjects references
     [SerializeField] private GameObject pickaxeGameObject;
     [SerializeField] private GameObject gunGameObject;
+    [SerializeField] private GameObject missileLauncher;
 
     private GameObject _hiddenItem = null;
 
@@ -100,10 +101,12 @@ public class UIController : MonoBehaviour
         if (value) // True == rocket / False == nothing
         {
             playerMotor.StartRocketing();
+            missileLauncher.SetActive(true);
         }
         else
         {
             playerMotor.StopRocketing();
+            missileLauncher.SetActive(false);
         }
     }
 

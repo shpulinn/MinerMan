@@ -29,10 +29,9 @@ public class RunningState : BaseState
 
     public override void Transition()
     {
-        // player can change direction while running
-        if (_inputManager.Tap)
+        if (_inputManager.Joystick)
         {
-            MoveToPoint(_inputManager.TapPosition);
+            playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
         }
         
         // when player reached position
