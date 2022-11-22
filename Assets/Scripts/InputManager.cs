@@ -98,7 +98,7 @@ public class InputManager : MonoBehaviour
         }
 
         _joystick = true;
-        _moveVector = new Vector3(_moveJoystick.Horizontal, 1, _moveJoystick.Vertical);
+        _moveVector = new Vector3(_moveJoystick.Horizontal, 0, _moveJoystick.Vertical);
     }
 
     public void ToggleControl(bool value)
