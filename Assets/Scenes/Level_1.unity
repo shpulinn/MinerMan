@@ -14287,6 +14287,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1173084846}
     m_Modifications:
+    - target: {fileID: 2746591350889688665, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2746591350937114060, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -14371,6 +14375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2746591350937114062, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2746591350937114063, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
       propertyPath: m_Name
       value: LoadingScreen
@@ -14387,6 +14395,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1173084842}
+    - target: {fileID: 2746591352542890565, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaf63bf76bd7a074f92bf2502e4f56ff, type: 3}
 --- !u!1001 &8488649079958119485
