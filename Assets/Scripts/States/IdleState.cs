@@ -29,6 +29,7 @@ public class IdleState : BaseState
         if (_inputManager.Joystick)
         {
             playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
+            playerMotor.ChangeState(_runningState);
         }
 
         if (playerMotor.CanMiningEnergy || playerMotor.CanMiningCrystal)
