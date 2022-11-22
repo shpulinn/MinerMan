@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -90,7 +91,10 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
         MousePosition = Mouse.current.position.ReadValue();
+#endif
+        //MousePosition = Mouse.current.position.ReadValue();
         if (_moveJoystick.Horizontal == 0 && _moveJoystick.Vertical == 0)
         {
             _joystick = false;
