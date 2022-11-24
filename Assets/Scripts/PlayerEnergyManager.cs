@@ -4,13 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerEnergy : MonoBehaviour
+public class PlayerEnergyManager : MonoBehaviour
 {
+    public static PlayerEnergyManager Instance;
+    
     [SerializeField] private Slider energySlider;
 
     private float _currentEnergy;
 
     public float CurrentEnergy => _currentEnergy;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
