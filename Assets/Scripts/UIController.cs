@@ -9,9 +9,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance;
-
-    [SerializeField] private PlayerMotor playerMotor;
-    [Space] 
+    
     [SerializeField] private GameObject joystickUI;
     [SerializeField] private GameObject gameOverDeathScreen;
     [SerializeField] private GameObject gameOverWinScreen;
@@ -29,6 +27,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject missileLauncher;
 
     private GameObject _hiddenItem = null;
+    
+    private PlayerMotor _playerMotor;
 
     private void Awake()
     {
@@ -37,6 +37,8 @@ public class UIController : MonoBehaviour
             Destroy(gameObject);
         }
         Instance = this;
+
+        _playerMotor = GameObject.Find("Player").GetComponent<PlayerMotor>();
     }
 
     void Update()
@@ -89,13 +91,13 @@ public class UIController : MonoBehaviour
         {
             gunGameObject.SetActive(false);
             pickaxeGameObject.SetActive(true);
-            playerMotor.TakePickaxe();
+            _playerMotor.TakePickaxe();
         }
         else
         {
             pickaxeGameObject.SetActive(false);
             gunGameObject.SetActive(true);
-            playerMotor.TakeGun();
+            _playerMotor.TakeGun();
         }
     }
 
@@ -103,12 +105,12 @@ public class UIController : MonoBehaviour
     {
         if (value) // True == rocket / False == nothing
         {
-            playerMotor.StartRocketing();
+            _playerMotor.StartRocketing();
             missileLauncher.SetActive(true);
         }
         else
         {
-            playerMotor.StopRocketing();
+            _playerMotor.StopRocketing();
             missileLauncher.SetActive(false);
         }
     }
@@ -116,17 +118,17 @@ public class UIController : MonoBehaviour
     public void ShowInfoScreen()
     {
         infoScreen.SetActive(true);
-        if (playerMotor.IsRocketing)
+        if (_playerMotor.IsRocketing)
         {
-            playerMotor.StopRocketing();
+            _playerMotor.StopRocketing();
             ExitRocketing();
         }
 
-        if (playerMotor.IsFighting)
+        if (_playerMotor.IsFighting)
         {
             gunGameObject.SetActive(false);
             pickaxeGameObject.SetActive(true);
-            playerMotor.TakePickaxe();
+            _playerMotor.TakePickaxe();
         }
         Invoke(nameof(HideInfoScreen), infoShowingTime);
     }
