@@ -19,8 +19,10 @@ public class FightingState : BaseState
     [SerializeField] private float reloadingTime = 1.0f;
     [Space]
     [SerializeField] private float visionRadius = 5.0f;
+    [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private ParticleSystem firePartisces;
     [SerializeField] private LayerMask enemyLayerMask;
+    [SerializeField] private LayerMask defaultLayerMask;
     [Header("Gizmos showing vision radius for player shooting")]
     [SerializeField] private Color gizmosColor;
 
@@ -39,6 +41,29 @@ public class FightingState : BaseState
         _motionAnimationID = Animator.StringToHash("Motion");
         
         _inputManager = InputManager.Instance;
+
+        lineRenderer.positionCount = 51;
+        lineRenderer.useWorldSpace = false;
+        CreatePoints();
+    }
+
+    private void CreatePoints()
+    {
+        float x;
+        float y;
+        float z;
+
+        float angle = 20f;
+
+        for (int i = 0; i < (51); i++)
+        {
+            x = Mathf.Sin (Mathf.Deg2Rad * angle) * visionRadius;
+            y = Mathf.Cos (Mathf.Deg2Rad * angle) * visionRadius;
+
+            lineRenderer.SetPosition (i,new Vector3(x,y,0) );
+
+            angle += (360f / 51);
+        }
     }
     
     public override void Construct()
@@ -59,6 +84,13 @@ public class FightingState : BaseState
         foreach (var col in colliders)
         {
             Transform nearestEnemy = GetClosestEnemy(colliders);
+            Ray ray = new Ray(transform.position, nearestEnemy.transform.position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, defaultLayerMask))
+            {
+                // there is obstacle between player and enemy, skip that 
+                continue;
+            }
             transform.LookAt(nearestEnemy);
             if (!_isReloading)
             {
