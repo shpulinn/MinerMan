@@ -8,7 +8,6 @@ public class MiningState : BaseState
 
     private float miningTime;
 
-    private PlayerEnergy _playerEnergy;
     private LevelGoal _levelGoal;
     private Animator _animator;
 
@@ -36,8 +35,6 @@ public class MiningState : BaseState
         _deathState = GetComponent<DeathState>();
         
         _inputManager = InputManager.Instance;
-        
-        _playerEnergy = GetComponent<PlayerEnergy>();
         _levelGoal = GetComponent<LevelGoal>();
         _animator = GetComponent<Animator>();
 
@@ -120,7 +117,7 @@ public class MiningState : BaseState
             return;
         }
         playerMotor.DestroyMiningObject();
-        _playerEnergy.IncreaseEnergy(energyMiningValue);
+        PlayerEnergyManager.Instance.IncreaseEnergy(energyMiningValue);
         playerMotor.ChangeState(_idleState);
     }
     
