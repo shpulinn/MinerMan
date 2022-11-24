@@ -5,8 +5,6 @@ public class RocketMissileState : BaseState
     [SerializeField] private GameObject rocketPrefab;
     [SerializeField] private float energyCost = 0.6f;
 
-    private PlayerEnergy _playerEnergy;
-
     private IdleState _idleState;
     private DeathState _deathState;
     private InputManager _inputManager;
@@ -16,8 +14,6 @@ public class RocketMissileState : BaseState
 
     private void Start()
     {
-        _playerEnergy = GetComponent<PlayerEnergy>();
-
         _idleState = GetComponent<IdleState>();
         _deathState = GetComponent<DeathState>();
         _animator = GetComponent<Animator>();
@@ -39,9 +35,9 @@ public class RocketMissileState : BaseState
         {
             // Instantiate rocket above tap point 
             Quaternion rot = new Quaternion(0, 0, 180, -1);
-            if (_playerEnergy.CurrentEnergy >= energyCost)
+            if (PlayerEnergyManager.Instance.CurrentEnergy >= energyCost)
             {
-                _playerEnergy.DecreaseEnergy(energyCost);
+                PlayerEnergyManager.Instance.DecreaseEnergy(energyCost);
                 Instantiate(rocketPrefab, _inputManager.TapPosition + Vector3.up * 10, rot);
                 playerMotor.ChangeState(_idleState);
                 UIController.Instance.ExitRocketing();
