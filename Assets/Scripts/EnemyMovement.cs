@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(SphereCollider))]
 public class EnemyMovement : MonoBehaviour
 {
     // radius of range when enemy would "see" player and start follow
@@ -12,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     // the distance between enemy & player to stop following and back to guarding/patrolling
     [SerializeField] private float stopFollowingDistance = 7.0f; 
     [SerializeField] private List<Transform> wayPoints = new List<Transform>();
+    [SerializeField] private LayerMask defaultLayerMask;
     private int _currentWayPointIndex;
     private Animator _animator;
     private int _isWalkingAnimationID;
@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour
         _meshAgent.speed = moveSpeed;
         _meshAgent.angularSpeed = rotationSpeed;
         _startPosition = transform.position;
-        _sphereCollider = GetComponent<SphereCollider>();
+        _sphereCollider = GetComponentInChildren<SphereCollider>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _sphereCollider.radius = visionRadius;
         _sphereCollider.isTrigger = true;
@@ -96,6 +96,13 @@ public class EnemyMovement : MonoBehaviour
         if (other.CompareTag(PlayerTag))
         {
             _player = other.gameObject;
+            Ray ray = new Ray(transform.position, other.transform.position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, defaultLayerMask))
+            {
+                // there is obstacle between player and enemy, skip that 
+                return;
+            }
             StartChasingPlayer();
         }
     }
