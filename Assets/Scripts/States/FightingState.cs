@@ -13,8 +13,6 @@ public class FightingState : BaseState
     private Animator _animator;
     private int _motionAnimationID;
 
-    private PlayerEnergy _playerEnergy;
-
     [Header("Gun settings")]
     [SerializeField] private float damage = 4.0f;
     [SerializeField] private float energyCost = 0.2f;
@@ -41,7 +39,6 @@ public class FightingState : BaseState
         _motionAnimationID = Animator.StringToHash("Motion");
         
         _inputManager = InputManager.Instance;
-        _playerEnergy = GetComponent<PlayerEnergy>();
     }
     
     public override void Construct()
@@ -51,7 +48,7 @@ public class FightingState : BaseState
 
     public override void Transition()
     {
-        if (_playerEnergy.CurrentEnergy < energyCost)
+        if (PlayerEnergyManager.Instance.CurrentEnergy < energyCost)
         {
             UIController.Instance.ShowInfoScreen();
             playerMotor.ChangeState(_idleState);
@@ -101,7 +98,7 @@ public class FightingState : BaseState
         {
             return;
         }
-        _playerEnergy.DecreaseEnergy(energyCost);
+        PlayerEnergyManager.Instance.DecreaseEnergy(energyCost);
         playerMotor.StopMoving();
         enemyHealth.TakeDamage(damage);
         firePartisces.Play();
