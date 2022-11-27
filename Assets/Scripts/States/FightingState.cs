@@ -101,8 +101,8 @@ public class FightingState : BaseState
         if (_inputManager.Joystick)
         {
             playerMotor.MoveToDirection(transform.position + _inputManager.MoveVector);
-            if (_inputManager.MoveVector.x - Vector3.forward.x < 0 &&
-                _inputManager.MoveVector.z - Vector3.forward.z < 0)
+            // if player move to opposite direction while shooting
+            if (Vector3.Angle(transform.forward, _inputManager.MoveVector) > 100)
             {
                 _animator.SetFloat(_motionAnimationID, -1);
             } else _animator.SetFloat(_motionAnimationID, 1);
