@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2529009342547631104}
   - component: {fileID: 6095928782920987726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crystal_0
   m_TagString: Crystal
   m_Icon: {fileID: 0}
@@ -62,6 +62,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: a4db5e0dd2d5c204eac6af72d0405d40, type: 3}
       propertyPath: m_Name
       value: RedCrystal05
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a4db5e0dd2d5c204eac6af72d0405d40, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a4db5e0dd2d5c204eac6af72d0405d40, type: 3}
       propertyPath: m_RootOrder
@@ -136,6 +140,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: bb711eb4f975f0e4192524d23ec7861c, type: 3}
       propertyPath: m_Name
       value: Rock002
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bb711eb4f975f0e4192524d23ec7861c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bb711eb4f975f0e4192524d23ec7861c, type: 3}
       propertyPath: m_RootOrder
@@ -256,9 +264,21 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0.8784314
       objectReference: {fileID: 0}
+    - target: {fileID: 8512827299752059737, guid: e198a15c4bca0a340978ba921289bb35, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8512827299752064883, guid: e198a15c4bca0a340978ba921289bb35, type: 3}
       propertyPath: m_Name
       value: ItemRedEssence
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512827299752064883, guid: e198a15c4bca0a340978ba921289bb35, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512827299752291257, guid: e198a15c4bca0a340978ba921289bb35, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8512827299752521125, guid: e198a15c4bca0a340978ba921289bb35, type: 3}
       propertyPath: m_RootOrder
@@ -334,6 +354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedCrystal01
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: db6b511898d990344aa90a5e4d31c4c1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db6b511898d990344aa90a5e4d31c4c1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -407,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 6c4f9353405beb9429d4f61e59844278, type: 3}
       propertyPath: m_Name
       value: RedCrystal00
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6c4f9353405beb9429d4f61e59844278, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6c4f9353405beb9429d4f61e59844278, type: 3}
       propertyPath: m_RootOrder
@@ -482,6 +510,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedCrystal01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: db6b511898d990344aa90a5e4d31c4c1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db6b511898d990344aa90a5e4d31c4c1, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -556,6 +588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedCrystal04
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b8d90e34edad55248977f14a7992e68d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b8d90e34edad55248977f14a7992e68d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -629,6 +665,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e0fe5787aa5dc96459f354c7f0a1b968, type: 3}
       propertyPath: m_Name
       value: RedCrystal07
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e0fe5787aa5dc96459f354c7f0a1b968, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e0fe5787aa5dc96459f354c7f0a1b968, type: 3}
       propertyPath: m_RootOrder
