@@ -32,6 +32,7 @@ public class PlayerEnergyManager : MonoBehaviour
     public void IncreaseEnergy(float amount)
     {
         _currentEnergy += amount;
+        _currentEnergy = _currentEnergy > 1 ? 1 : _currentEnergy;
         UpdateEnergySlider();
     }
 
