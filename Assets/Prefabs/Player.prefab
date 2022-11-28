@@ -431,7 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateName: 
   rocketPrefab: {fileID: 7206628746148376681, guid: 910c014cd74b9ff408942600f15f29d7, type: 3}
-  energyCost: 0.6
+  energyCost: 0.2
 --- !u!195 &1358774661948326036
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -523,9 +523,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateName: 
   damage: 4
-  energyCost: 0.2
+  energyCost: 0.04
   reloadingTime: 1
-  visionRadius: 5
+  visionRadius: 4.5
   lineRenderer: {fileID: 7142563277120742497}
   firePartisces: {fileID: 1358774661497372585}
   enemyLayerMask:
