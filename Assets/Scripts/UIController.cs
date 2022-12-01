@@ -98,6 +98,11 @@ public class UIController : MonoBehaviour
             pickaxeGameObject.SetActive(false);
             gunGameObject.SetActive(true);
             _playerMotor.TakeGun();
+
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                IntroMiningEvent.SendGunSelected();
+            }
         }
     }
 
@@ -107,6 +112,11 @@ public class UIController : MonoBehaviour
         {
             _playerMotor.StartRocketing();
             missileLauncher.SetActive(true);
+            
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                IntroMiningEvent.SendRocketSelected();
+            }
         }
         else
         {
