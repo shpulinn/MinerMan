@@ -1885,10 +1885,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2262770e3d23c4c4c8b1fce81cff3502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 7
-  moveSpeed: 3
+  visionRadius: 10
+  moveSpeed: 2.6
   rotationSpeed: 100
-  stopFollowingDistance: 5
+  stopFollowingDistance: 8
   wayPoints: []
   defaultLayerMask:
     serializedVersion: 2
