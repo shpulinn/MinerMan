@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -73,6 +74,14 @@ public class EnemyMovement : MonoBehaviour
         {
             CheckDistance();
         }
+
+        if (_isGuarding && !_isChasing)
+        {
+            if (Vector3.Distance(transform.position, _startPosition) <= _meshAgent.stoppingDistance)
+            {
+                _animator.SetBool(_isWalkingAnimationID, false);
+            }
+        }
     }
 
     private void CheckDistance()
@@ -96,7 +105,7 @@ public class EnemyMovement : MonoBehaviour
         if (other.CompareTag(PlayerTag))
         {
             _player = other.gameObject;
-            Ray ray = new Ray(transform.position, other.transform.position);
+            Ray ray = new Ray(transform.position, _player.transform.position);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, defaultLayerMask))
             {
@@ -104,6 +113,14 @@ public class EnemyMovement : MonoBehaviour
                 return;
             }
             StartChasingPlayer();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(PlayerTag))
+        {
+            StopChasingPlayer();
         }
     }
 
