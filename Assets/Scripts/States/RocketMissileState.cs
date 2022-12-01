@@ -39,6 +39,12 @@ public class RocketMissileState : BaseState
             {
                 PlayerEnergyManager.Instance.DecreaseEnergy(energyCost);
                 Instantiate(rocketPrefab, _inputManager.TapPosition + Vector3.up * 10, rot);
+
+                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0)
+                {
+                   IntroMiningEvent.SendRocketLaunched(); 
+                }
+                
                 playerMotor.ChangeState(_idleState);
                 UIController.Instance.ExitRocketing();
             }
