@@ -36,6 +36,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: f5d34ddd3774f4049b2e859d09c35f9d, type: 3}
     - {fileID: 2800000, guid: cbd4f9f49a74b254585ccb1aad07c11f, type: 3}
     - {fileID: 2800000, guid: 10f5443166f6e2d49ad46505f5dc547b, type: 3}
+    - {fileID: 2800000, guid: c89e477e187c8004da1887e3c8c52ca4, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -45,12 +46,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cbd4f9f49a74b254585ccb1aad07c11f, type: 3}
   - {fileID: 21300000, guid: f5045a062b1da434eba0bcc3175aa33c, type: 3}
   - {fileID: 21300000, guid: f5d34ddd3774f4049b2e859d09c35f9d, type: 3}
+  - {fileID: 21300000, guid: c89e477e187c8004da1887e3c8c52ca4, type: 3}
   - {fileID: 21300000, guid: 1aa12def599ab804ab2ae3e96a7a012f, type: 3}
   m_PackedSpriteNamesToIndex:
   - crystal_image
   - pickaxe
   - close
   - missile
+  - arrow-down
   - gun
   m_RenderDataMap: {}
   m_Tag: UIAtlas
