@@ -133,15 +133,17 @@ public class PlayerMotor : MonoBehaviour
             _destroyable = other.gameObject;
             transform.LookAt(_destroyable.transform);
         }
-        else _canMiningEnergy = false;
-
-        if (other.CompareTag(CrystalTag) && _isRunning == false)
+        else if (other.CompareTag(CrystalTag) && _isRunning == false)
         {
             _canMiningCrystal = true;
             _destroyable = other.gameObject;
             transform.LookAt(_destroyable.transform);
         }
-        else _canMiningCrystal = false;
+        else
+        {
+            _canMiningEnergy = false;
+            _canMiningCrystal = false;
+        }
     }
 
     public void DestroyMiningObject()
