@@ -19425,6 +19425,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCrystalGoal: 2
+  crystalImage: {fileID: 2074193057}
+  bossLabel: {fileID: 0}
+  _levelType: 0
 --- !u!114 &1414892719
 MonoBehaviour:
   m_ObjectHideFlags: 0
