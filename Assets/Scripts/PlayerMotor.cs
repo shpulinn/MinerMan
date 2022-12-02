@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -126,7 +127,7 @@ public class PlayerMotor : MonoBehaviour
     {
         if (_canMining == false)
             return;
-
+        
         if (other.CompareTag(EnergyCrystalTag) && _isRunning == false)
         {
             _canMiningEnergy = true;
@@ -139,11 +140,11 @@ public class PlayerMotor : MonoBehaviour
             _destroyable = other.gameObject;
             transform.LookAt(_destroyable.transform);
         }
-        else
-        {
-            _canMiningEnergy = false;
-            _canMiningCrystal = false;
-        }
+        // else
+        // {
+        //     _canMiningEnergy = false;
+        //     _canMiningCrystal = false;
+        // }
     }
 
     public void DestroyMiningObject()
