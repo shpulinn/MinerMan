@@ -10,6 +10,13 @@ public class LevelGoal : MonoBehaviour
 
     private LevelManager _levelManager;
 
+    public static Action BossAction;
+
+    public static void SendBossAction()
+    {
+        BossAction?.Invoke();
+    }
+
     private void Start()
     {
         _levelManager = LevelManager.Instance;
