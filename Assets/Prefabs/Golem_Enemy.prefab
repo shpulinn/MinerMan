@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2258302491146727432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8414717927539768894}
+  - component: {fileID: 1370693563588318249}
+  m_Layer: 2
+  m_Name: VisionCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8414717927539768894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258302491146727432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.173913, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8485366705881009021}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1370693563588318249
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258302491146727432}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8487106961065260273
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +777,6 @@ GameObject:
   - component: {fileID: 8485366705881009021}
   - component: {fileID: 8403548626459968951}
   - component: {fileID: 8488649081155706978}
-  - component: {fileID: 8488649081155706973}
   - component: {fileID: 8488649081155706972}
   - component: {fileID: 8488649081155706977}
   - component: {fileID: 8488649081155706976}
@@ -759,6 +802,7 @@ Transform:
   - {fileID: 8493206168846442851}
   - {fileID: 8485365670294811325}
   - {fileID: 3915305801624658426}
+  - {fileID: 8414717927539768894}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -797,19 +841,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &8488649081155706973
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8488852196736348831}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &8488649081155706972
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -863,6 +894,9 @@ MonoBehaviour:
   rotationSpeed: 100
   stopFollowingDistance: 6
   wayPoints: []
+  defaultLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   enemyType: 0
 --- !u!114 &8488649081155706979
 MonoBehaviour:
