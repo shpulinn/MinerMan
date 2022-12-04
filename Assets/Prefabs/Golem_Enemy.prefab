@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2830fef944fa6514c9209f5b93a3cd2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 10
+  maxHealthPoints: 15
   bloodParticles: {fileID: 3915305801624658308}
   timeToDestroyAfterDeath: 2
 --- !u!1001 &8488649080872533337
