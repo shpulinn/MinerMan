@@ -6,7 +6,6 @@ using UnityEngine;
 public class FightingState : BaseState
 {
     private IdleState _idleState;
-    private RunningState _runningState;
     private RocketMissileState _rocketMissileState;
     private DeathState _deathState;
     private InputManager _inputManager;
@@ -23,17 +22,19 @@ public class FightingState : BaseState
     [SerializeField] private ParticleSystem firePartisces;
     [SerializeField] private LayerMask enemyLayerMask;
     [SerializeField] private LayerMask defaultLayerMask;
-    [Header("Gizmos showing vision radius for player shooting")]
-    [SerializeField] private Color gizmosColor;
+
+    [Header("Draw shoot radius via line renderer")] [SerializeField]
+    private bool showShootingRadius;
 
     [SerializeField] private List<EnemyHealth> enemyHealths = new List<EnemyHealth>();
 
     private bool _isReloading = false;
+    private bool _isRotating = false;
+    private Transform _nearestEnemy;
 
     private void Start()
     {
         _idleState = GetComponent<IdleState>();
-        _runningState = GetComponent<RunningState>();
         _rocketMissileState = GetComponent<RocketMissileState>();
         _deathState = GetComponent<DeathState>();
 
@@ -44,9 +45,15 @@ public class FightingState : BaseState
 
         lineRenderer.positionCount = 51;
         lineRenderer.useWorldSpace = false;
-        CreatePoints();
+        lineRenderer.enabled = false;
+        if (showShootingRadius)
+        {
+            lineRenderer.enabled = true;
+            CreatePoints();
+        }
     }
 
+    // method for drawing player shooting radius via line renderer
     private void CreatePoints()
     {
         float x;
@@ -92,6 +99,7 @@ public class FightingState : BaseState
                 continue;
             }
             transform.LookAt(nearestEnemy);
+            
             if (!_isReloading)
             {
                 Shoot(nearestEnemy.GetComponent<EnemyHealth>());
@@ -142,12 +150,6 @@ public class FightingState : BaseState
         _isReloading = true;
         yield return new WaitForSeconds(reloadingTime);
         _isReloading = false;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = gizmosColor;
-        Gizmos.DrawSphere(transform.position, visionRadius);
     }
     
     private Transform GetClosestEnemy (Collider[] enemies)
