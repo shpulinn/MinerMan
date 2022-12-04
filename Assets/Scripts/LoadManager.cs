@@ -16,11 +16,18 @@ public class LoadManager : MonoBehaviour
 
     public void LoadLevel(string levelName)
     {
+        //SaveProgress(SceneManager.GetActiveScene().buildIndex);
         loadingScreen.SetActive(true);
         //SceneManager.LoadSceneAsync(levelName);
         StartCoroutine(LoadLevelCoroutine(levelName));
         int randomTooltipIndex = Random.Range(0, tooltips.Count);
         tooltipPlaceholder.text = tooltips[randomTooltipIndex].text;
+    }
+
+    public void SaveProgress(int passedLevelIndex)
+    {
+        PlayerPrefs.SetInt("LevelIndex", passedLevelIndex);
+        PlayerPrefs.Save();
     }
     
     private static IEnumerator LoadLevelCoroutine(string sceneName)
