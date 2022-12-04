@@ -3032,7 +3032,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -8391,7 +8391,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -10294,7 +10294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 1.5, z: -0.5}
+  m_TrackedObjectOffset: {x: 0, y: 1, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -10304,7 +10304,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 13.5
+  m_CameraDistance: 13
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -11247,7 +11247,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -12615,7 +12615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0.02, y: 14.241603, z: -7.3476324}
+  m_LocalPosition: {x: 0.02, y: 13.35858, z: -6.5262384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -13262,7 +13262,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: enemyType
@@ -19667,7 +19667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438999817}
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0.02, y: 14.241603, z: -7.3476324}
+  m_LocalPosition: {x: 0.02, y: 13.35858, z: -6.5262384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 792320203}
@@ -22882,6 +22882,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Level_3
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1127737540}
+        m_TargetAssemblyTypeName: LoadManager, Assembly-CSharp
+        m_MethodName: SaveProgress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1653423401

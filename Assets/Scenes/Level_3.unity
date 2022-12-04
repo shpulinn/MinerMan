@@ -1532,7 +1532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6403292179167313642, guid: 792394fb694306f40a972e554a41325b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.64
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 6403292179167313642, guid: 792394fb694306f40a972e554a41325b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1656,6 +1656,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 605235994737197478, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
+      propertyPath: m_AngularDrag
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
       value: Bear_Enemy
@@ -3933,7 +3937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8488649081155706979, guid: 17c0b46caf255f142a649b3a23f49f5a, type: 3}
       propertyPath: maxHealthPoints
-      value: 60
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8488852196736348831, guid: 17c0b46caf255f142a649b3a23f49f5a, type: 3}
       propertyPath: m_Name
@@ -4806,7 +4810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 1.5, z: -0.5}
+  m_TrackedObjectOffset: {x: 0, y: 1, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -4816,7 +4820,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 13.5
+  m_CameraDistance: 13
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -5041,7 +5045,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
+      propertyPath: visionRadius
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -6081,7 +6089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 10.54, y: 14.241603, z: -16.177633}
+  m_LocalPosition: {x: 10.54, y: 13.35858, z: -15.35624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6749,11 +6757,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: enemyType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
+      propertyPath: visionRadius
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: wayPoints.Array.size
@@ -7059,7 +7071,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: enemyType
@@ -8280,7 +8292,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
+      propertyPath: visionRadius
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -9511,7 +9527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438999817}
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 10.54, y: 14.241603, z: -16.177633}
+  m_LocalPosition: {x: 10.54, y: 13.35858, z: -15.35624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 792320203}
@@ -10193,6 +10209,10 @@ PrefabInstance:
     - target: {fileID: 749348104740654050, guid: 4415d42f89fe59142a95d78587cc2b92, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358774661948326127, guid: 4415d42f89fe59142a95d78587cc2b92, type: 3}
+      propertyPath: showShootingRadius
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1358774661948326125, guid: 4415d42f89fe59142a95d78587cc2b92, type: 3}
@@ -11184,6 +11204,18 @@ MonoBehaviour:
           m_StringArgument: Level_1
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 971190749}
+        m_TargetAssemblyTypeName: LoadManager, Assembly-CSharp
+        m_MethodName: SaveProgress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1653423401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11231,7 +11263,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605235994737197485, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
+      propertyPath: visionRadius
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -12948,7 +12984,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 605235994737197474, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: maxHealthPoints
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7356999851280603453, guid: 3292cc72cbab5124883eff083e37ef39, type: 3}
       propertyPath: m_Name
@@ -14503,7 +14539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6403292179167313642, guid: 792394fb694306f40a972e554a41325b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.91
+      value: 2.082
       objectReference: {fileID: 0}
     - target: {fileID: 6403292179167313642, guid: 792394fb694306f40a972e554a41325b, type: 3}
       propertyPath: m_LocalPosition.z
