@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: 
-  damage: 4
+  damage: 1
   energyCost: 0.04
   reloadingTime: 1
   visionRadius: 4.5
@@ -534,7 +534,7 @@ MonoBehaviour:
   defaultLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  gizmosColor: {r: 0.027970618, g: 0, b: 0.7529412, a: 0.5529412}
+  showShootingRadius: 0
   enemyHealths: []
 --- !u!114 &1358774661948326114
 MonoBehaviour:
