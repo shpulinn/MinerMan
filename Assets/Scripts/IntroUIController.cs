@@ -15,6 +15,19 @@ public class IntroUIController : MonoBehaviour
 
     private void Start()
     {
+        // IntroMiningEvent.OnFirstCrystallMined += ShowGunArrowImage;
+        // IntroMiningEvent.OnSecondCrystallMined += ShowRocketArrowImage;
+        // IntroMiningEvent.OnGunSelected += GunSelected;
+        // IntroMiningEvent.OnRocketSelected += RocketSelected;
+        // IntroMiningEvent.OnRocketLaunched += RocketLaunched;
+        //
+        // gunToggle.interactable = false;
+        // gunImage.SetActive(false);
+        // rocketToggle.interactable = false;
+    }
+
+    private void OnEnable()
+    {
         IntroMiningEvent.OnFirstCrystallMined += ShowGunArrowImage;
         IntroMiningEvent.OnSecondCrystallMined += ShowRocketArrowImage;
         IntroMiningEvent.OnGunSelected += GunSelected;
