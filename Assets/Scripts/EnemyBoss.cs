@@ -18,5 +18,6 @@ public class EnemyBoss : MonoBehaviour
     private void OnDestroy()
     {
         LevelGoal.SendBossAction();
+        LevelGoal.BossAction -= BossDeath;
     }
 }
